@@ -1,0 +1,15 @@
+{
+    "name": "mohamedamine/symfony-dip",
+    "description": "Code to illustrate the inner working of the DIP component",
+    "type": "project",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Massira",
+            "email": "mohamed.anbri92@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/dependency-injection": "^3.3"
+    }
+}
