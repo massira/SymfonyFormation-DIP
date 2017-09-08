@@ -9,6 +9,9 @@
             "email": "mohamed.anbri92@gmail.com"
         }
     ],
+    "autoload":{
+       "psr-4" : {"DIP\\Formation\\" : "src/"}
+    },
     "require": {
         "symfony/dependency-injection": "^3.3",
         "symfony/yaml": "~3.3",
