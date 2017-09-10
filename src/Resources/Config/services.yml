@@ -1,0 +1,12 @@
+parameters:
+    mailer.transport: sendmail
+
+services:
+    mailer:
+        class:     DIP\Formation\Services\Mailer
+        arguments: ['%mailer.transport%']
+    newsletter_manager:
+        class:     DIP\Formation\Services\NewsletterManager
+        #calls:
+        #    - [setMailer, ['@mailer']]
+        arguments: ['@mailer']

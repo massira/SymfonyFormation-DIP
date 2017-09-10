@@ -1,0 +1,4 @@
+#These config values will be passed as first argument to the AcmeDemoExtension load method
+acme_demo:
+  foo: fooValue
+  bar: barValue

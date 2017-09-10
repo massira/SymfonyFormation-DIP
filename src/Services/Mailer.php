@@ -4,6 +4,8 @@ namespace DIP\Formation\Services;
 
 /**
  * Class Mailer
+ *
+ * @package DIP\Formation\Services
  */
 class Mailer
 {
