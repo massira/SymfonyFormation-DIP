@@ -28,7 +28,7 @@ $container->registerExtension($extension);
 
 //Loads config
 //When loading the extension configs, the extension should be registered first
-//otherwise "There is no extension able to load the configuration for "acme_demo" "
+//otherwise this message is shown "There is no extension able to load the configuration for "acme_demo""
 $diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //Loads the configuration for an extension

@@ -8,6 +8,7 @@ use DIP\Formation\Controller\DIConfigController;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
+use DIP\Formation\Controller\DIConfigExtensionController;
 
 require_once 'vendor/autoload.php';
 
@@ -60,4 +61,8 @@ $xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //$newsletterManager->sendNews();
 
-require_once 'loadExtension.php';
+//require_once 'loadExtension.php';
+
+$diConfigExtensionController = new DIConfigExtensionController($container);
+$diConfigExtensionController->loadExtension();
+print $container->getParameter('acme_demo_2');

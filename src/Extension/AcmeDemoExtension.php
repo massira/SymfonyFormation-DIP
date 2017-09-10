@@ -33,7 +33,7 @@ class AcmeDemoExtension implements ExtensionInterface
     /**
      * @inheritdoc
      */
-    public function getNamespace()
+    public function getXsdValidationBasePath()
     {
         return false;
     }
@@ -41,9 +41,9 @@ class AcmeDemoExtension implements ExtensionInterface
     /**
      * @inheritdoc
      */
-    public function getXsdValidationBasePath()
+    public function getNamespace()
     {
-        return false;
+        return 'http://www.example.com/symfony/schema/';
     }
 
     /**
