@@ -8,6 +8,11 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
+/**
+ * Class DIConfigExtensionController
+ *
+ * @package DIP\Formation\Controller
+ */
 class DIConfigExtensionController
 {
     private $container;
@@ -16,12 +21,20 @@ class DIConfigExtensionController
     const CONFIGS     = __DIR__.'/../Resources/Config';
     const CONFIG_FILE = __DIR__.'/../Resources/Config/extension_config_2.yml';
 
+    /**
+     * DIConfigExtensionController constructor.
+     *
+     * @param ContainerBuilder $container
+     */
     public function __construct(ContainerBuilder $container)
     {
         $this->container = $container;
         $this->extension = new AcmeDemo2Extension();
     }
 
+    /**
+     * Loads an extension into the container
+     */
     public function loadExtension()
     {
         //Register the extension in the container

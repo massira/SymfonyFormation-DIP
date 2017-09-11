@@ -24,7 +24,6 @@ class AcmeDemo2Extension extends Extension implements PrependExtensionInterface
             $processor = new Processor();
             $config = $processor->processConfiguration($configuration, $configs);
         */
-        var_dump($configs);die;
         $configuration = $this->getConfiguration($configs, $container);
         $configs = $this->processConfiguration($configuration, $configs);
 
@@ -32,7 +31,7 @@ class AcmeDemo2Extension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * @return string
+     * @return string The extension alias should be unique
      */
     public function getAlias()
     {
@@ -44,6 +43,8 @@ class AcmeDemo2Extension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
+        //Prepends a config array to the configs of the given extension.
+        //The first argument is the name(alias) of the extension
         $container->prependExtensionConfig('acme_demo_2', ['key' => 'value']);
     }
 }
