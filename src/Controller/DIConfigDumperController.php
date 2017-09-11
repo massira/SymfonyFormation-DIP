@@ -63,10 +63,13 @@ class DIConfigDumperController
             $ymlLoader = $this->getLoader($container);
             $ymlLoader->load(self::CONFIG_FILE);
             $container->compile();
-            $className = date('Y-m-d h:i:s').'MyCacheContainer';
-            $configCache->write($this->getDumper($container)->dump(['class' => $className]), $container->getResources());
+            $configCache->write($this->getDumper($container)->dump(['class' => 'MyCacheContainer']), $container->getResources());
 
             return $configCache->getPath();
+        } else {
+            echo 'The cache(container) is not fresh';
+            //Normally here we delete the cache(container) and recompile it to get a fresh version
+            exit;
         }
 
         return $configCache->getPath();

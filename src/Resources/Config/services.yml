@@ -10,4 +10,4 @@ services:
         #calls:
         #    - [setMailer, ['@mailer']]
         arguments: ['@mailer']
-        #tags: [newsletter.name]
+        tags: [newsletter.name]

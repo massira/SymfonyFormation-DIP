@@ -109,5 +109,5 @@ include_once $cachePath;
 
 $container = new MyCacheContainer();
 /** @var NewsletterManager $newsletterManager */
-$newsletterManager = $container->get('newsletter_manager');
+$newsletterManager = $container->get('newsletter_managerr');
 $newsletterManager->sendNews();
