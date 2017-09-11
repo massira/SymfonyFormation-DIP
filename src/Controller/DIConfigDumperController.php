@@ -3,6 +3,7 @@
 namespace DIP\Formation\Controller;
 
 use DIP\Formation\Services\NewsletterManager;
+use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\DumperInterface;
@@ -45,6 +46,30 @@ class DIConfigDumperController
         }
 
         return self::CACHE_PATH;
+    }
+
+    /**
+     * Dumps the container and verifying the freshness
+     * of the cache(Using config resources)
+     *
+     * @return string The cache path
+     */
+    public function dumpContainerWithConfigCache()
+    {
+        $configCache = new ConfigCache(self::CACHE_PATH, false);
+        if (!$configCache->isFresh()) {
+            //Working with a fresh container
+            $container = new ContainerBuilder();
+            $ymlLoader = $this->getLoader($container);
+            $ymlLoader->load(self::CONFIG_FILE);
+            $container->compile();
+            $className = date('Y-m-d h:i:s').'MyCacheContainer';
+            $configCache->write($this->getDumper($container)->dump(['class' => $className]), $container->getResources());
+
+            return $configCache->getPath();
+        }
+
+        return $configCache->getPath();
     }
 
     /**

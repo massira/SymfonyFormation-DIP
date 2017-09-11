@@ -9,14 +9,14 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
 /**
- * ProjectServiceContainer.
+ * MyCacheContainer.
  *
  * This class has been auto-generated
  * by the Symfony Dependency Injection Component.
  *
  * @final since Symfony 3.3
  */
-class ProjectServiceContainer extends Container
+class MyCacheContainer extends Container
 {
     private $parameters;
     private $targetDirs = array();

@@ -90,12 +90,24 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 
 /**Working with dumpers**/
 //Create the dumper
+//$diConfigDumperController = new DIConfigDumperController();
+//$cachePath = $diConfigDumperController->dumpContainer();
+
+//include_once $cachePath;
+
+//$container = new ProjectServiceContainer();
+/** @var NewsletterManager $newsletterManager */
+//$newsletterManager = $container->get('newsletter_manager');
+//$newsletterManager->sendNews();
+
+/**Working with dumpers and config cache**/
+//Create the dumper
 $diConfigDumperController = new DIConfigDumperController();
-$cachePath = $diConfigDumperController->dumpContainer();
+$cachePath = $diConfigDumperController->dumpContainerWithConfigCache();
 
 include_once $cachePath;
 
-$container = new ProjectServiceContainer();
+$container = new MyCacheContainer();
 /** @var NewsletterManager $newsletterManager */
 $newsletterManager = $container->get('newsletter_manager');
 $newsletterManager->sendNews();
