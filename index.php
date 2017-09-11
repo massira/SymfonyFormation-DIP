@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
 use DIP\Formation\Controller\DIConfigExtensionController;
+use DIP\Formation\Controller\DIConfigPassController;
+use DIP\Formation\Controller\DIConfigDumperController;
 
 require_once 'vendor/autoload.php';
 
@@ -34,6 +36,7 @@ $container = new ContainerBuilder();
 
 //print $mailerService->getTransport();
 
+/**Working with loaders and configuration files**/
 $path             = __DIR__.'/src/Resources/Config';
 $serviceConfigYML = __DIR__.'/src/Resources/Config/services.yml';
 $serviceConfigXML = __DIR__.'/src/Resources/Config/services.xml';
@@ -42,9 +45,9 @@ $serviceConfigXML = __DIR__.'/src/Resources/Config/services.xml';
 $fileLocator = new FileLocator([$path]);
 
 //Create the loader
-//$yamlLoader  = new YamlFileLoader($container, $fileLocator);
+$ymlLoader  = new YamlFileLoader($container, $fileLocator);
 
-$xmlLoader = new XmlFileLoader($container, $fileLocator);
+//$xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //Create the controller
 //$diConfigController = new DIConfigController($xmlLoader);
@@ -63,6 +66,36 @@ $xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //require_once 'loadExtension.php';
 
-$diConfigExtensionController = new DIConfigExtensionController($container);
-$diConfigExtensionController->loadExtension();
-print $container->getParameter('acme_demo_2');
+/**Working with extension and the config tree(TreeBuilder)**/
+//$diConfigExtensionController = new DIConfigExtensionController($container);
+//$diConfigExtensionController->loadExtension();
+//print $container->getParameter('acme_demo_2');
+
+/**Working with compiler passes**/
+//$diConfigPassController = new DIConfigPassController();
+
+//Create the controller
+//$diConfigController = new DIConfigController($ymlLoader);
+//Loads config
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//Register the pass
+//$diConfigPassController->executePass($container);
+//Compile the container to execute passes
+//$container->compile();
+
+/** @var NewsletterManager $newsletterManager */
+//$newsletterManager = $container->get('newsletter_manager');
+//print $newsletterManager->getName();
+
+/**Working with dumpers**/
+//Create the dumper
+$diConfigDumperController = new DIConfigDumperController();
+$cachePath = $diConfigDumperController->dumpContainer();
+
+include_once $cachePath;
+
+$container = new ProjectServiceContainer();
+/** @var NewsletterManager $newsletterManager */
+$newsletterManager = $container->get('newsletter_manager');
+$newsletterManager->sendNews();

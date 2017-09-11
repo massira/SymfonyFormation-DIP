@@ -1,0 +1,15 @@
+parameters:
+    mailer.transport: sendmail
+
+services:
+    service_container:
+        class: Symfony\Component\DependencyInjection\ContainerInterface
+        synthetic: true
+    mailer:
+        class: DIP\Formation\Services\Mailer
+        arguments: [sendmail]
+    newsletter_manager:
+        class: DIP\Formation\Services\NewsletterManager
+        tags:
+            - { name: newsletter.name }
+        arguments: ['@mailer']

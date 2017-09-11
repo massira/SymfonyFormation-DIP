@@ -19,11 +19,13 @@ class AcmeDemo2Extension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        //If not extending from the abstract class Extension
         /*
             $configuration = new Configuration();
             $processor = new Processor();
             $config = $processor->processConfiguration($configuration, $configs);
         */
+
         $configuration = $this->getConfiguration($configs, $container);
         $configs = $this->processConfiguration($configuration, $configs);
 
