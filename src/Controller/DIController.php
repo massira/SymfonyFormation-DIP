@@ -3,6 +3,7 @@
 namespace DIP\Formation\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -12,6 +13,11 @@ class DIController
 {
     private $container;
 
+    /**
+     * DIController constructor.
+     *
+     * @param ContainerBuilder $container
+     */
     public function __construct(ContainerBuilder $container)
     {
         $this->container = $container;
@@ -64,5 +70,20 @@ class DIController
 
         $this->container->register('newsletter_manager', 'DIP\Formation\Services\NewsletterManager_2')
              ->addMethodCall('setMailer', [new Reference('mailer')]);
+    }
+
+    /**
+     * Register a service using autowiring and alias
+     */
+    public function registerServiceAutowiringAlias()
+    {
+        $definition = new Definition();
+        $definition->setClass('DIP\Formation\Controller\DIAutowireController')
+            ->setAutowired(true)
+            ->setPublic(true);
+
+        $this->container->setDefinition('DIP\Formation\Controller\DIAutowireController', $definition);
+        $this->container->setAlias('message.generator', 'DIP\Formation\Controller\DIAutowireController');
+        $this->container->compile();
     }
 }

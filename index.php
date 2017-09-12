@@ -11,6 +11,7 @@ use Symfony\Component\Config\FileLocator;
 use DIP\Formation\Controller\DIConfigExtensionController;
 use DIP\Formation\Controller\DIConfigPassController;
 use DIP\Formation\Controller\DIConfigDumperController;
+use Symfony\Component\DependencyInjection\Definition;
 
 require_once 'vendor/autoload.php';
 
@@ -113,12 +114,16 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$newsletterManager->sendNews();
 
 /**Test autowire option**/
-$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire.yml';
+//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire.yml';
 //Create the controller
-$diConfigController = new DIConfigController($ymlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-$diConfigController->loadServiceConfiguration($serviceConfigYML);
-$container->compile();
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//Without loading the configuration file
+$diController = new DIController($container);
+$diController->registerServiceAutowiringAlias();
+
 /** @var \DIP\Formation\Controller\DIAutowireController $controller */
-$controller = $container->get('DIP\Formation\Controller\DIAutowireController');
+$controller = $container->get('message.generator');
 $controller->showMessage();

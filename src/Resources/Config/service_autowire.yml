@@ -1,4 +1,11 @@
 services:
+  #-Define a service by its class name
+  #-We can use the service id instead of the class name if we have mulitiple
+  #definition of the same class
   DIP\Formation\Controller\DIAutowireController:
     autowire: true
+    public: true
+  #Create an alias(message.generator) for the service DIP\Formation\Controller\DIAutowireController
+  message.generator:
+    alias: DIP\Formation\Controller\DIAutowireController
     public: true
