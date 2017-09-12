@@ -1,0 +1,4 @@
+services:
+  DIP\Formation\Controller\DIAutowireController:
+    autowire: true
+    public: true

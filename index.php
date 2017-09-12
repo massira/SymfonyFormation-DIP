@@ -102,12 +102,23 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 
 /**Working with dumpers and config cache**/
 //Create the dumper
-$diConfigDumperController = new DIConfigDumperController();
-$cachePath = $diConfigDumperController->dumpContainerWithConfigCache();
+//$diConfigDumperController = new DIConfigDumperController();
+//$cachePath = $diConfigDumperController->dumpContainerWithConfigCache();
 
-include_once $cachePath;
+//include_once $cachePath;
 
-$container = new MyCacheContainer();
+//$container = new MyCacheContainer();
 /** @var NewsletterManager $newsletterManager */
-$newsletterManager = $container->get('newsletter_managerr');
-$newsletterManager->sendNews();
+//$newsletterManager = $container->get('newsletter_manager');
+//$newsletterManager->sendNews();
+
+/**Test autowire option**/
+$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire.yml';
+//Create the controller
+$diConfigController = new DIConfigController($ymlLoader);
+//Loads config
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
+$container->compile();
+/** @var \DIP\Formation\Controller\DIAutowireController $controller */
+$controller = $container->get('DIP\Formation\Controller\DIAutowireController');
+$controller->showMessage();
