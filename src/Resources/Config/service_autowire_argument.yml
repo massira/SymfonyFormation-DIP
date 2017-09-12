@@ -6,7 +6,10 @@ services:
       autowire: true
       public: true
       arguments:
+        # added in symfony 3.3, previously we can use the index of the argument(position in constructor)
+        # or empty quotes for the other arguments
         $name: '%user_name%'
+        #$name: '@monolog.logger.request' to inject a specific service into the argument
     message.generator:
       alias: DIP\Formation\Controller\DIAutowireController
       public: true
