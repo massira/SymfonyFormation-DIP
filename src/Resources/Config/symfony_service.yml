@@ -1,0 +1,19 @@
+services:
+  # default configuration for services in *this* file
+  _defaults: # added in symfony 3.3
+    # inject dependencies automatically
+    autowire: true
+    autoconfigure: true
+    # if the service is not public(private), you can't use the get method
+    # of the container
+    public: false
+
+  AppBundle\: # added in symfony 3.3
+    resource: '../../src/AppBundle/*'
+    # you can exclude directories or files
+    # but if a service is unused, it's removed anyway
+    exclude: '../../src/AppBundle/{Entity, Repository}'
+
+    # the service id of the classes is their class name
+    # now we can automatically use any classes from the src/AppBundle directory as a service,
+    # without needing to manually configure it.
