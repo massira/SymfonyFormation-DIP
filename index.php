@@ -114,16 +114,18 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$newsletterManager->sendNews();
 
 /**Test autowire option**/
-//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire.yml';
+$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire_argument.yml';
 //Create the controller
-//$diConfigController = new DIConfigController($ymlLoader);
+$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //Without loading the configuration file
-$diController = new DIController($container);
-$diController->registerServiceAutowiringAlias();
+//$diController = new DIController($container);
+//$diController->registerServiceAutowiringAlias();
 
+//Compiling the container
+$container->compile();
 /** @var \DIP\Formation\Controller\DIAutowireController $controller */
 $controller = $container->get('message.generator');
 $controller->showMessage();

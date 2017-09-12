@@ -1,0 +1,12 @@
+parameters:
+  user_name: 'Mohamed Amine'
+
+services:
+    DIP\Formation\Controller\DIAutowireController:
+      autowire: true
+      public: true
+      arguments:
+        $name: '%user_name%'
+    message.generator:
+      alias: DIP\Formation\Controller\DIAutowireController
+      public: true
