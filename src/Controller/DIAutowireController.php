@@ -22,6 +22,9 @@ class DIAutowireController
      */
     public function __construct(MessageGenerator $generator, $name)
     {
+        //Both classes(DIAutowireController|MessageGenerator) are automatically registered as services
+        // and configured to be autowired.
+
         $this->generator = $generator;
         $this->name      = $name;
     }

@@ -8,6 +8,7 @@ services:
     # -The container will automatically apply certain configuration to your services, based on your service's
     #  class|interface implemented.
     # -This is mostly used to auto-tag your services.
+    # -auto-tag doesn't work for the tags that require attributes.
     autoconfigure: true
     # -if the service is not public(private), you can't use the get method
     # of the container
@@ -28,8 +29,15 @@ services:
     # without needing to manually configure it.
 
   # these were imported above, but we want to add some extra config
+  # controllers are imported separately to make sure they're public
+  # and have a tag that allows actions to type-hint services
   AppBundle\Controller\:
     resource: '../../src/AppBundle/Controller'
     # apply some configuration to these services
     public: true
     tags: ['controller.service_arguments']
+
+  # add more services, or override services that need manual wiring
+      # AppBundle\Service\ExampleService:
+      #     arguments:
+      #         $someArgument: 'some_value'

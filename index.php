@@ -51,13 +51,13 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //Create the controller
-//$diConfigController = new DIConfigController($ymlLoader);
+$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 /** alias tag without a loader**/
-$diController = new DIController($container);
-$diController->registerServiceAliasTag();
+//$diController = new DIController($container);
+//$diController->registerServiceAliasTag();
 
 /** @var Mailer $mailerService */
 $mailerService = $container->get('mailer');
