@@ -134,4 +134,15 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$controller = $container->get('message.generator');
 //$controller->showMessage();
 
-/****/
+/**Working with autowiring and alias**/
+$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire_alias.yml';
+//Create the controller
+$diConfigController = new DIConfigController($ymlLoader);
+//Loads config
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//compiling the container
+$container->compile();
+/** @var DIP\Formation\Services\TwitterClient $twitterClient */
+$twitterClient = $container->get('DIP\Formation\Services\TwitterClient');
+$twitterClient->tweet('Amine', 'mykey', 'Hello');

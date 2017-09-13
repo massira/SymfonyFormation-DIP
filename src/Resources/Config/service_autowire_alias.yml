@@ -3,11 +3,11 @@ services:
     autowire: true
     public: true
 
-  DIP\Formation\Services\UppercaseTransformer: ~
-
-  DIP\Formation\Services\Rot13Transformer:
+  DIP\Formation\Services\UppercaseTransformer:
     autowire: true
 
+  DIP\Formation\Services\Rot13Transformer: ~
+
   # create an alias to the service 'Rot13Transformer', so when the autowire system
-  # found a TransformerInterface as a type hint it will replaced by an instance of the class 'Rot13Transformer'
-  DIP\Formation\Services\TransformerInterface: '@DIP\Formation\Services\Rot13Transformer'
+  # found a TransformerInterface as a type hint it will be replaced by an instance of the class 'Rot13Transformer'
+  DIP\Formation\Services\TransformerInterface: '@DIP\Formation\Services\UppercaseTransformer'
