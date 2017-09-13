@@ -9,5 +9,9 @@ services:
         class:     DIP\Formation\Services\NewsletterManager
         #calls:
         #    - [setMailer, ['@mailer']]
-        arguments: ['@mailer']
+        # arguments: ['@mailer']
+        arguments: # a different way to pass arguments to contructor
+          - '@mailer'
         tags: [newsletter.name]
+    # another way to create an alias for the service newsletter_manager
+    newsletter.manager.alias: '@newsletter_manager'

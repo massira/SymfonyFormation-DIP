@@ -86,4 +86,21 @@ class DIController
         $this->container->setAlias('message.generator', 'DIP\Formation\Controller\DIAutowireController');
         $this->container->compile();
     }
+
+    /**
+     * Registers a service with a tag and an alias
+     */
+    public function registerServiceAliasTag()
+    {
+        $this->container->setParameter('mailer.transport', 'send_mail');
+        $this->container->register('mailer', 'DIP\Formation\Services\Mailer')
+                        ->addArgument('%mailer.transport%');
+
+        $this->container->register('newsletter_manager', 'DIP\Formation\Services\NewsletterManager')
+                        ->addArgument(new Reference('mailer'))
+                        ->addTag('newsletter.name');
+
+        $this->container->setAlias('newsletter.manager.alias', 'newsletter_manager');
+        $this->container->compile();
+    }
 }

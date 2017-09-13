@@ -51,19 +51,23 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //Create the controller
-//$diConfigController = new DIConfigController($xmlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-//$diConfigController->loadServiceConfiguration($serviceConfigXML);
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+/** alias tag without a loader**/
+$diController = new DIController($container);
+$diController->registerServiceAliasTag();
 
 /** @var Mailer $mailerService */
-//$mailerService = $container->get('mailer');
+$mailerService = $container->get('mailer');
 
-//print $mailerService->getTransport();
+print $mailerService->getTransport();
 
 /** @var NewsletterManager $newsletterManager */
-//$newsletterManager = $container->get('newsletter_manager');
+$newsletterManager = $container->get('newsletter.manager.alias');
 
-//$newsletterManager->sendNews();
+$newsletterManager->sendNews();
 
 //require_once 'loadExtension.php';
 
@@ -114,18 +118,18 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$newsletterManager->sendNews();
 
 /**Test autowire option**/
-$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire_argument.yml';
+//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_autowire_argument.yml';
 //Create the controller
-$diConfigController = new DIConfigController($ymlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-$diConfigController->loadServiceConfiguration($serviceConfigYML);
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //Without loading the configuration file
 //$diController = new DIController($container);
 //$diController->registerServiceAutowiringAlias();
 
 //Compiling the container
-$container->compile();
+//$container->compile();
 /** @var \DIP\Formation\Controller\DIAutowireController $controller */
-$controller = $container->get('message.generator');
-$controller->showMessage();
+//$controller = $container->get('message.generator');
+//$controller->showMessage();
