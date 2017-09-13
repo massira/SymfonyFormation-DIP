@@ -6,8 +6,8 @@ services:
   DIP\Formation\Services\UppercaseTransformer:
     autowire: true
 
-  DIP\Formation\Services\Rot13Transformer: ~
+  DIP\Formation\Services\Rot13Transformer: ~ # I think use default settings
 
-  # create an alias to the service 'Rot13Transformer', so when the autowire system
-  # found a TransformerInterface as a type hint it will be replaced by an instance of the class 'Rot13Transformer'
+  # create an alias to the service 'UppercaseTransformer', so when the autowire system
+  # found a TransformerInterface as a type hint it will be replaced by an instance of the class 'UppercaseTransformer'
   DIP\Formation\Services\TransformerInterface: '@DIP\Formation\Services\UppercaseTransformer'

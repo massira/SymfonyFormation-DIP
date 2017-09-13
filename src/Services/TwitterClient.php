@@ -30,4 +30,15 @@ class TwitterClient
     {
         print 'The status: ' . $this->transformer->transform($status) . 'is tweeted for the user: ' . $user . 'and key: ' . $key;
     }
+
+    /**
+     * @param Rot13Transformer $transformer
+     *
+     * @required
+     */
+   // public function setTransformer(Rot13Transformer $transformer)
+    //{
+      //  required annotation used for setter injection
+      //  $this->transformer = $transformer;
+    //}
 }
