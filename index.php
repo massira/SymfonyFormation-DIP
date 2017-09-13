@@ -51,23 +51,23 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //Create the controller
-$diConfigController = new DIConfigController($ymlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-$diConfigController->loadServiceConfiguration($serviceConfigYML);
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 /** alias tag without a loader**/
 //$diController = new DIController($container);
 //$diController->registerServiceAliasTag();
 
 /** @var Mailer $mailerService */
-$mailerService = $container->get('mailer');
+//$mailerService = $container->get('mailer');
 
-print $mailerService->getTransport();
+//print $mailerService->getTransport();
 
 /** @var NewsletterManager $newsletterManager */
-$newsletterManager = $container->get('newsletter.manager.alias');
+//$newsletterManager = $container->get('newsletter.manager.alias');
 
-$newsletterManager->sendNews();
+//$newsletterManager->sendNews();
 
 //require_once 'loadExtension.php';
 
@@ -133,3 +133,5 @@ $newsletterManager->sendNews();
 /** @var \DIP\Formation\Controller\DIAutowireController $controller */
 //$controller = $container->get('message.generator');
 //$controller->showMessage();
+
+/****/
