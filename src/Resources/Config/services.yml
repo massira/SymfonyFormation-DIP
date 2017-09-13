@@ -10,6 +10,10 @@ services:
         deprecated: The "%service_id%" service is deprecated since 2.8 and will be removed in 3.0.
         #calls:
         #    - [setMailer, ['@mailer']]
+        #calls: # different way to use setter injection
+         # - method: setLogger
+          #  arguments:
+           #    - '@logger'
         # arguments: ['@mailer']
         arguments: # a different way to pass arguments to contructor
           - '@mailer'
