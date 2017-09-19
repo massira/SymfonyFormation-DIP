@@ -87,6 +87,8 @@ class DIController
         $this->container->compile();
     }
 
+    //@todo autowire interface code
+
     /**
      * Registers a service with a tag and an alias
      */
