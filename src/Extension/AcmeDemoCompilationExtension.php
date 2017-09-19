@@ -19,6 +19,7 @@ class AcmeDemoCompilationExtension implements ExtensionInterface, CompilerPassIn
     public function process(ContainerBuilder $container)
     {
         // TODO: Implement process() method.
+        //If an extension is implementing the "CompilerPassInterface" interface we don't need to create compiler passes
         //The process method is executed after all extension configuration is loaded
         //So we can work on the container during compilation(working on service definitions of other extensions)
 
