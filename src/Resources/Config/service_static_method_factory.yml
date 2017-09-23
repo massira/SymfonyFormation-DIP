@@ -1,0 +1,8 @@
+services:
+  DIP\Formation\Services\Factory\NewsletterManager:
+    # let the factory create the service(static method)
+    factory: ['DIP\Formation\Services\Factory\NewsletterManagerFactory', getNewsletterManager]
+
+    # if the method is not static
+    # factory: 'DIP\Formation\Services\Factory\NewsletterManagerFactory:getNewsletterManager' #new syntax
+    # factory: ['@AppBundle\Email\NewsletterManagerFactory', createNewsletterManager] #old syntax

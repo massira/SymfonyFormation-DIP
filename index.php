@@ -174,8 +174,21 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$mailer->sendMail();
 
 //Working with Expression => php code
-$diController = new DIController($container);
-$diController->registerServiceUsingExpression();
+//$diController = new DIController($container);
+//$diController->registerServiceUsingExpression();
 /** @var DIP\Formation\Services\Expression\Mailer $mailer */
-$mailer = $container->get('DIP\Formation\Services\Expression\Mailer');
-$mailer->sendMail();
+//$mailer = $container->get('DIP\Formation\Services\Expression\Mailer');
+//$mailer->sendMail();
+
+/*********Working with the Factory**********/
+$serviceConfigYML = __DIR__.'/src/Resources/Config/service_static_method_factory.yml';
+//Create the controller
+$diConfigController = new DIConfigController($ymlLoader);
+//Loads config
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//compiling the container
+$container->compile();
+/** @var DIP\Formation\Services\Factory\NewsletterManager $newsletterManager */
+$newsletterManager = $container->get('DIP\Formation\Services\Factory\NewsletterManager');
+$newsletterManager->sendNewsletter();
