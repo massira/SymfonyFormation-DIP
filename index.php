@@ -148,7 +148,20 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$twitterClient->tweet('Amine', 'mykey', 'Hello');
 
 /******Working with service configurator******/
-$serviceConfigYML = __DIR__.'/src/Resources/Config/service_configurator.yml';
+//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_configurator.yml';
+//Create the controller
+//$diConfigController = new DIConfigController($ymlLoader);
+//Loads config
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//compiling the container
+//$container->compile();
+/** @var DIP\Formation\Services\Configurator\NewsletterManager $newsletterManager */
+//$newsletterManager = $container->get('DIP\Formation\Services\Configurator\NewsletterManager');
+//$newsletterManager->send();
+
+/*********Working with Expressions**********/
+$serviceConfigYML = __DIR__.'/src/Resources/Config/service_expression.yml';
 //Create the controller
 $diConfigController = new DIConfigController($ymlLoader);
 //Loads config
@@ -156,6 +169,6 @@ $diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //compiling the container
 $container->compile();
-/** @var DIP\Formation\Services\Configurator\NewsletterManager $newsletterManager */
-$newsletterManager = $container->get('DIP\Formation\Services\Configurator\NewsletterManager');
-$newsletterManager->send();
+/** @var DIP\Formation\Services\Expression\Mailer $mailer */
+$mailer = $container->get('DIP\Formation\Services\Expression\Mailer');
+$mailer->sendMail();

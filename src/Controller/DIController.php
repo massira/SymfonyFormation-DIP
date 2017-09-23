@@ -90,7 +90,7 @@ class DIController
     //@todo autowire interface code
 
     //@todo service configurator
-    
+
     /**
      * Registers a service with a tag and an alias
      */

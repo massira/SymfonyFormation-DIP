@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  DIP\Formation\Services\Expression\MailerConfiguration: ~
+
+  DIP\Formation\Services\Expression\Mailer:
+    public: true
+    # service('service_id') : returns the service to br used on the expression
+    arguments: ["@=service('DIP\\\\Formation\\\\Services\\\\Expression\\\\MailerConfiguration').getProtocol()"]
+    # parameter('parameter_name') : returns a parameter
+    # container : access the ContainerBiuilder
+    # arguments: ["@=container.hasParameter('some_param') ? parameter('some_param') : 'default_value'"]
+
+    # The expression can be used in: "arguments", "calls", "properties" and as arguments of "configurator"
