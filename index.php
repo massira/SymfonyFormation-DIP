@@ -161,14 +161,21 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$newsletterManager->send();
 
 /*********Working with Expressions**********/
-$serviceConfigYML = __DIR__.'/src/Resources/Config/service_expression.yml';
+//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_expression.yml';
 //Create the controller
-$diConfigController = new DIConfigController($ymlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-$diConfigController->loadServiceConfiguration($serviceConfigYML);
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //compiling the container
-$container->compile();
+//$container->compile();
+/** @var DIP\Formation\Services\Expression\Mailer $mailer */
+//$mailer = $container->get('DIP\Formation\Services\Expression\Mailer');
+//$mailer->sendMail();
+
+//Working with Expression => php code
+$diController = new DIController($container);
+$diController->registerServiceUsingExpression();
 /** @var DIP\Formation\Services\Expression\Mailer $mailer */
 $mailer = $container->get('DIP\Formation\Services\Expression\Mailer');
 $mailer->sendMail();

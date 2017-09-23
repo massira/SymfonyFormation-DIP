@@ -5,6 +5,7 @@ namespace DIP\Formation\Controller;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 /**
  * Class DIController
@@ -114,6 +115,33 @@ class DIController
                         ->addTag('newsletter.name');
 
         $this->container->setAlias('newsletter.manager.alias', 'newsletter_manager');
+        $this->container->compile();
+    }
+
+    /**
+     * Registers a service in the container using expression
+     */
+    public function registerServiceUsingExpression()
+    {
+        $definition = new Definition();
+        $definition->setClass('DIP\Formation\Services\Expression\MailerConfiguration')
+                   ->setAutowired(true)
+                   ->setPublic(true);
+
+        $this->container->setDefinition('mailer.configuration', $definition);
+
+        //shortcut
+        //$this->container->autowire('DIP\Formation\Services\Expression\MailerConfiguration');
+
+        $this->container->register('DIP\Formation\Services\Expression\Mailer')
+                        ->setPublic(true)
+                        ->setAutowired(true)
+                        ->addArgument(new Expression('service("mailer.configuration").getProtocol()'));
+
+        //shortcut
+        //$this->container->autowire('DIP\Formation\Services\Expression\Mailer')
+        // ->addArgument(new Expression('service("DIP\Formation\Services\Expression\MailerConfiguration").getProtocol()'));
+
         $this->container->compile();
     }
 }
