@@ -1,0 +1,19 @@
+services:
+  #default settings in this file
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  DIP\Formation\Services\Configurator\EmailFormatterManager: ~
+  DIP\Formation\Services\Configurator\EmailConfigurator: ~
+
+  #override the settings
+  DIP\Formation\Services\Configurator\NewsletterManager:
+    configurator: 'DIP\Formation\Services\Configurator\EmailConfigurator:configure'
+
+  DIP\Formation\Services\Configurator\GreetingCardManager:
+    #new syntax => introduced in symfony 3.2 to use a configurator
+    configurator: 'DIP\Formation\Services\Configurator\EmailConfigurator:configure'
+    #old syntax
+    #configurtor: ['@DIP\Formation\Services\Configurator\EmailConfigurator', configure]

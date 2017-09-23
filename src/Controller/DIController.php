@@ -89,6 +89,8 @@ class DIController
 
     //@todo autowire interface code
 
+    //@todo service configurator
+    
     /**
      * Registers a service with a tag and an alias
      */
@@ -98,6 +100,15 @@ class DIController
         $this->container->register('mailer', 'DIP\Formation\Services\Mailer')
                         ->addArgument('%mailer.transport%');
 
+        /*
+         * ->The methods here that change service definitions can only be used before the container is compiled.
+         * ->Once the container is compiled you cannot manipulate service definitions further.
+         */
+
+        /*
+         * ->Don't use "get()" to get a service that you want to inject as constructor argument,
+         * the service is not yet available. Instead, use a "Reference" instance as shown above.
+         */
         $this->container->register('newsletter_manager', 'DIP\Formation\Services\NewsletterManager')
                         ->addArgument(new Reference('mailer'))
                         ->addTag('newsletter.name');
