@@ -144,4 +144,25 @@ class DIController
 
         $this->container->compile();
     }
+
+    /**
+     * Lets the factory create the service instead of the container
+     */
+    public function registerServiceUsingFactory()
+    {
+        $this->container->setParameter('newsletter_mailer', 'mailer_configured');
+        $this->container->autowire('DIP\Formation\Services\Factory\NewsletterManagerFactory');
+
+        //->If the factory method is static
+        //$this->container->register('DIP\Formation\Services\Factory\NewsletterManager')
+        //     ->setFactory('DIP\Formation\Services\Factory\NewsletterManagerFactory::getNewsletterManager');
+        //     ->setFactory(['DIP\Formation\Services\Factory\NewsletterManagerFactory', 'getNewsletterManager']);
+
+        //->if the factory method is not static
+        $this->container->register('DIP\Formation\Services\Factory\NewsletterManager')
+            ->addArgument('%newsletter_mailer%')
+            ->setFactory([new Reference('DIP\Formation\Services\Factory\NewsletterManagerFactory'), 'getNewsletterManagerArgument']);
+
+        $this->container->compile();
+    }
 }

@@ -181,14 +181,22 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$mailer->sendMail();
 
 /*********Working with the Factory**********/
-$serviceConfigYML = __DIR__.'/src/Resources/Config/service_factory.yml';
+//$serviceConfigYML = __DIR__.'/src/Resources/Config/service_factory.yml';
 //Create the controller
-$diConfigController = new DIConfigController($ymlLoader);
+//$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-$diConfigController->loadServiceConfiguration($serviceConfigYML);
+//$diConfigController->loadServiceConfiguration($serviceConfigYML);
 
 //compiling the container
-$container->compile();
+//$container->compile();
+/** @var DIP\Formation\Services\Factory\NewsletterManager $newsletterManager */
+//$newsletterManager = $container->get('DIP\Formation\Services\Factory\NewsletterManager');
+//print $newsletterManager->getMailer();
+
+//Working with Factory Method => php code
+$diController = new DIController($container);
+$diController->registerServiceUsingFactory();
+
 /** @var DIP\Formation\Services\Factory\NewsletterManager $newsletterManager */
 $newsletterManager = $container->get('DIP\Formation\Services\Factory\NewsletterManager');
 print $newsletterManager->getMailer();
