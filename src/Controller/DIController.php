@@ -219,4 +219,24 @@ class DIController
 
         $this->container->compile();
     }
+
+    /**
+     * Working with service decorators
+     */
+    public function registerServicesUsingDecorator()
+    {
+        $this->container->setParameter('mailer.transport', 'sendMailer');
+
+        $this->container->register('app.mailer', 'DIP\Formation\Services\DecoratorServices\Mailer')
+                        ->addArgument('%mailer.transport%');
+
+        $this->container->register('app.mailer_decorator', 'DIP\Formation\Services\DecoratorServices\MailerDecorator')
+                        ->setDecoratedService('app.mailer')
+                        //Service Id 'app.mailer_decorator.inner' to access the decorated service 'app.mailer'
+                        ->addArgument(new Reference('app.mailer_decorator.inner'))
+                        //private, because usually you do not need to fetch app.mailer_decorator directly
+                        ->setPublic(false);
+
+        $this->container->compile();
+    }
 }

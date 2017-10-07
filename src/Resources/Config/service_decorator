@@ -1,0 +1,15 @@
+services:
+    app.mailer:
+        class: DIP\Formation\Services\DecoratorServices\Mailer
+
+    app.mailer_decorator:
+        class:    DIP\Formation\Services\DecoratorServices\DecoratorMailer
+        # overrides the app.mailer service
+        # but that service is still available as app.decorating_mailer.inner
+        decorates: app.mailer
+
+        # pass the old service as an argument
+        arguments: ['@app.mailer_decorator.inner']
+
+        # private, because usually you do not need to fetch app.decorating_mailer directly
+        public:    false

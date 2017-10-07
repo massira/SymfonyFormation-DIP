@@ -202,15 +202,19 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //print $newsletterManager->getMailer();
 
 /************Working with parent services(ChildDefinition)*************/
-$diController = new DIController($container);
-$diController->registerServicesUsingParentService();
+//$diController = new DIController($container);
+//$diController->registerServicesUsingParentService();
 
 /** @var  DIP\Formation\Services\ParentServices\DoctrinePostService $doctrinePostService */
-$doctrinePostService = $container->get('DIP\Formation\Services\ParentServices\DoctrinePostService');
-$doctrinePostService->log('Doctrine Post Service log');
+//$doctrinePostService = $container->get('DIP\Formation\Services\ParentServices\DoctrinePostService');
+//$doctrinePostService->log('Doctrine Post Service log');
 
+/************Working with service decorator*************/
+$diController = new DIController($container);
+$diController->registerServicesUsingDecorator();
 
-
+$mailer = $container->get('app.mailer');
+$mailer->send();
 
 
 
