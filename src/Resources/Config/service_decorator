@@ -4,6 +4,8 @@ services:
 
     app.mailer_decorator:
         class:    DIP\Formation\Services\DecoratorServices\DecoratorMailer
+        #Control the generated service id of the decorated service
+        decoration_inner_name: app.decorating_mailer.wooz
         # overrides the app.mailer service
         # but that service is still available as app.decorating_mailer.inner
         decorates: app.mailer

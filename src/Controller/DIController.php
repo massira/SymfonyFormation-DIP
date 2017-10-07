@@ -231,7 +231,13 @@ class DIController
                         ->addArgument('%mailer.transport%');
 
         $this->container->register('app.mailer_decorator', 'DIP\Formation\Services\DecoratorServices\MailerDecorator')
-                        ->setDecoratedService('app.mailer')
+                        /*
+                         * ->Arguments:
+                         * -The decorated service
+                         * -The renamed service id of the decorated service
+                         * -The priority(used to order the decorators => $this->services['foo'] = new Baz(new Bar(new Foo()));)
+                         */
+                        ->setDecoratedService('app.mailer', 'app.decorating_mailer.wooz', 10)
                         //Service Id 'app.mailer_decorator.inner' to access the decorated service 'app.mailer'
                         ->addArgument(new Reference('app.mailer_decorator.inner'))
                         //private, because usually you do not need to fetch app.mailer_decorator directly
