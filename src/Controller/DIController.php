@@ -2,6 +2,7 @@
 
 namespace DIP\Formation\Controller;
 
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -162,6 +163,36 @@ class DIController
         $this->container->register('DIP\Formation\Services\Factory\NewsletterManager')
             ->addArgument('%newsletter_mailer%')
             ->setFactory([new Reference('DIP\Formation\Services\Factory\NewsletterManagerFactory'), 'getNewsletterManagerArgument']);
+
+        $this->container->compile();
+    }
+
+    /**
+     * Register services using parent Services
+     */
+    public function registerServicesUsingParentService()
+    {
+        //Example of autowiring using interface alias
+        $this->container->autowire('DIP\Formation\Services\ParentServices\Logger');
+        $this->container->setAlias('DIP\Formation\Services\ParentServices\LoggerInterface', 'DIP\Formation\Services\ParentServices\Logger');
+
+        $this->container->autowire('DIP\Formation\Services\ParentServices\EntityManager');
+        $this->container->setAlias('DIP\Formation\Services\ParentServices\EntityManagerInterface', 'DIP\Formation\Services\ParentServices\EntityManager');
+
+        $baseDefinition = new Definition();
+        $baseDefinition->setClass('DIP\Formation\Services\ParentServices\BaseDoctrineRepository')
+                   ->setAbstract(true)
+                   ->addArgument(new Reference('DIP\Formation\Services\ParentServices\EntityManager'))
+                   ->addMethodCall('setLogger', [new Reference('DIP\Formation\Services\ParentServices\Logger')]);
+        $this->container->setDefinition('DIP\Formation\Services\ParentServices\BaseDoctrineRepository', $baseDefinition);
+
+        $doctrinePostServiceDefinition           = new ChildDefinition('DIP\Formation\Services\ParentServices\BaseDoctrineRepository');
+        $doctrinePostServiceDefinition->setClass('DIP\Formation\Services\ParentServices\DoctrinePostService');
+        $this->container->setDefinition('DIP\Formation\Services\ParentServices\DoctrinePostService', $doctrinePostServiceDefinition);
+
+        $doctrineUserRepositoryDefinition        = new ChildDefinition('DIP\Formation\Services\ParentServices\BaseDoctrineRepository');
+        $doctrineUserRepositoryDefinition->setClass('DIP\Formation\Services\ParentServices\DoctrineUserRepository');
+        $this->container->setDefinition('DIP\Formation\Services\ParentServices\DoctrineUserRepository', $doctrineUserRepositoryDefinition);
 
         $this->container->compile();
     }

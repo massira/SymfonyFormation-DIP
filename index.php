@@ -194,9 +194,29 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //print $newsletterManager->getMailer();
 
 //Working with Factory Method => php code
-$diController = new DIController($container);
-$diController->registerServiceUsingFactory();
+//$diController = new DIController($container);
+//$diController->registerServiceUsingFactory();
 
 /** @var DIP\Formation\Services\Factory\NewsletterManager $newsletterManager */
-$newsletterManager = $container->get('DIP\Formation\Services\Factory\NewsletterManager');
-print $newsletterManager->getMailer();
+//$newsletterManager = $container->get('DIP\Formation\Services\Factory\NewsletterManager');
+//print $newsletterManager->getMailer();
+
+/************Working with parent services(ChildDefinition)*************/
+$diController = new DIController($container);
+$diController->registerServicesUsingParentService();
+
+/** @var  DIP\Formation\Services\ParentServices\DoctrinePostService $doctrinePostService */
+$doctrinePostService = $container->get('DIP\Formation\Services\ParentServices\DoctrinePostService');
+$doctrinePostService->log('Doctrine Post Service log');
+
+
+
+
+
+
+
+
+
+
+
+

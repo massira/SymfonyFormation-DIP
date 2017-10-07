@@ -9,8 +9,11 @@ namespace DIP\Formation\Services\ParentServices;
  */
 abstract class BaseDoctrineRepository
 {
-    private $logger;
-    private $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+    protected $entityManager;
 
     /**
      * BaseDoctrineRepository constructor.

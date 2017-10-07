@@ -14,4 +14,14 @@ class DoctrinePostService extends BaseDoctrineRepository
     {
         parent::__construct($entityManager);
     }
+
+    /**
+     * Logs message
+     *
+     * @param string $message
+     */
+    public function log($message)
+    {
+        $this->logger->log($message);
+    }
 }
