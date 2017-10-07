@@ -1,0 +1,33 @@
+services:
+  DIP\Formation\Services\ParentServices\Logger:
+    autowire: true
+  #Creating an alias
+  DIP\Formation\Services\ParentServices\LoggerInterface: '@DIP\Formation\Services\ParentServices\Logger'
+
+  DIP\Formation\Services\ParentServices\EntityManager:
+    autowire: true
+  #Creating an alias
+  DIP\Formation\Services\ParentServices\EntityManagerInterface: '@DIP\Formation\Services\ParentServices\EntityManager'
+
+  DIP\Formation\Services\ParentServices\BaseDoctrineRepository:
+    abstract: true
+    arguments: ['@DIP\Formation\Services\ParentServices\EntityManager']
+    calls: ['setLogger', ['@DIP\Formation\Services\ParentServices\Logger']]
+
+  DIP\Formation\Services\ParentServices\DoctrinePostService:
+    # extend the DIP\Formation\Services\ParentServices\BaseDoctrineRepository service
+    parent: DIP\Formation\Services\ParentServices\BaseDoctrineRepository
+    #overriding parent dependencies
+    #change service visibility
+    public : false
+    #Appends the argument to the parent argument list
+    #arguments: ['@app.username_checker']
+
+
+  DIP\Formation\Services\ParentServices\DoctrineUserRepository:
+      parent: DIP\Formation\Services\ParentServices\BaseDoctrineRepository
+
+      #overriding parent service
+      #replace parent argument
+      #arguments:
+        #index_0: '@doctrine.custom_entity_manager'

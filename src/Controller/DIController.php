@@ -179,6 +179,17 @@ class DIController
         $this->container->autowire('DIP\Formation\Services\ParentServices\EntityManager');
         $this->container->setAlias('DIP\Formation\Services\ParentServices\EntityManagerInterface', 'DIP\Formation\Services\ParentServices\EntityManager');
 
+        /*
+         * ->All attributes on the parent service are shared with the child except for shared, abstract and tags.
+         * ->These are not inherited from the parent.
+         */
+
+        /*
+         * ->In the examples shown, the classes sharing the same configuration also extend from the same parent class in PHP.
+         * ->This isn't necessary at all. You can just extract common parts of similar service definitions into a parent service
+         * without also extending a parent class in PHP.
+         */
+
         $baseDefinition = new Definition();
         $baseDefinition->setClass('DIP\Formation\Services\ParentServices\BaseDoctrineRepository')
                    ->setAbstract(true)
@@ -188,10 +199,22 @@ class DIController
 
         $doctrinePostServiceDefinition           = new ChildDefinition('DIP\Formation\Services\ParentServices\BaseDoctrineRepository');
         $doctrinePostServiceDefinition->setClass('DIP\Formation\Services\ParentServices\DoctrinePostService');
+
+        //Override parent service
+        // overrides the public setting of the parent service
+        //$doctrinePostServiceDefinition->setPublic(false);
+        // appends the '@app.username_checker' argument to the parent argument list
+        //$doctrinePostServiceDefinition->addArgument(new Reference('app.username_checker'));
+
         $this->container->setDefinition('DIP\Formation\Services\ParentServices\DoctrinePostService', $doctrinePostServiceDefinition);
 
         $doctrineUserRepositoryDefinition        = new ChildDefinition('DIP\Formation\Services\ParentServices\BaseDoctrineRepository');
         $doctrineUserRepositoryDefinition->setClass('DIP\Formation\Services\ParentServices\DoctrineUserRepository');
+
+        //Override parent service
+        // overrides the first argument
+        //$doctrineUserRepositoryDefinition->replaceArgument(0, new Reference('doctrine.custom_entity_manager'));
+
         $this->container->setDefinition('DIP\Formation\Services\ParentServices\DoctrineUserRepository', $doctrineUserRepositoryDefinition);
 
         $this->container->compile();
