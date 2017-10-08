@@ -210,11 +210,18 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$doctrinePostService->log('Doctrine Post Service log');
 
 /************Working with service decorator*************/
-$diController = new DIController($container);
-$diController->registerServicesUsingDecorator();
+//$diController = new DIController($container);
+//$diController->registerServicesUsingDecorator();
 
-$mailer = $container->get('app.mailer');
-$mailer->send();
+//$mailer = $container->get('app.mailer');
+//$mailer->send();
+
+/******Working with service locator********/
+$diController = new DIController($container);
+$diController->registerServicesUsingServiceLocator();
+
+$commandBus = $container->get('DIP\Formation\Services\ServiceLocators\CommandBus');
+$commandBus->handle(new \DIP\Formation\Services\ServiceLocators\DeleteUserCommand());
 
 
 

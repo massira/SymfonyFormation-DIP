@@ -3,6 +3,7 @@
 namespace DIP\Formation\Controller;
 
 use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -242,6 +243,23 @@ class DIController
                         ->addArgument(new Reference('app.mailer_decorator.inner'))
                         //private, because usually you do not need to fetch app.mailer_decorator directly
                         ->setPublic(false);
+
+        $this->container->compile();
+    }
+
+    public function registerServicesUsingServiceLocator()
+    {
+        $this->container->register('DIP\Formation\Services\ServiceLocators\DeleteUserHandler');
+        $this->container->register('app.service_locator', 'Symfony\Component\DependencyInjection\ServiceLocator')
+                        ->addTag('container.service_locator')
+                        ->setArguments(
+                            [[
+                                'DIP\Formation\Services\ServiceLocators\DeleteUserCommand' => new Reference('DIP\Formation\Services\ServiceLocators\DeleteUserHandler')
+                            ]]
+                        );
+
+        $this->container->register('DIP\Formation\Services\ServiceLocators\CommandBus')
+                        ->addArgument(new Reference('app.service_locator'));
 
         $this->container->compile();
     }
