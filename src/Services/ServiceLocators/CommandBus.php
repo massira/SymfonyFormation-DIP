@@ -22,10 +22,19 @@ class CommandBus
     private $handlerLocator;
 
     /**
-     * @param ContainerInterface $handlerLocator
+     * @param ContainerInterface $handlerLocator Service locators
      */
     public function __construct(ContainerInterface $handlerLocator)
     {
+        /*
+         * ->Service Locators are intended to solve this problem by giving access to a set of predefined
+         * services while instantiating them only when actually needed.
+         *
+         * ->The service locator implement the interface: PSR-11 ContainerInterface
+         *
+         * ->The service locator is a callable: $this->handlerLocator($command)
+         */
+
         $this->handlerLocator = $handlerLocator;
     }
 

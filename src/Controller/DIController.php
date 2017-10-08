@@ -247,6 +247,9 @@ class DIController
         $this->container->compile();
     }
 
+    /**
+     * Working with service locator
+     */
     public function registerServicesUsingServiceLocator()
     {
         $this->container->register('DIP\Formation\Services\ServiceLocators\DeleteUserHandler');

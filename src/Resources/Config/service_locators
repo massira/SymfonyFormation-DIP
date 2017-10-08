@@ -1,0 +1,12 @@
+services:
+  DIP\Formation\Services\ServiceLocators\DeleteUserHandler: ~
+
+  app.service_locator:
+    class: Symfony\Component\DependencyInjection\ServiceLocator
+    tags: ['container.service_locator']
+    arguments:
+      -
+        DIP\Formation\Services\ServiceLocators\DeleteUserCommand: '@DIP\Formation\Services\ServiceLocators\DeleteUserHandler'
+
+  DIP\Formation\Services\ServiceLocators\CommandBus:
+    arguments: ['@app.service_locator']
