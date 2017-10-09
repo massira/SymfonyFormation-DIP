@@ -1,3 +1,6 @@
+imports:
+  - {resource: service_autowire.yml}
+
 parameters:
     mailer.transport: sendmail
 

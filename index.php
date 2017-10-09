@@ -51,9 +51,12 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$xmlLoader = new XmlFileLoader($container, $fileLocator);
 
 //Create the controller
-//$diConfigController = new DIConfigController($ymlLoader);
+$diConfigController = new DIConfigController($ymlLoader);
 //Loads config
-//$diConfigController->loadServiceConfiguration($serviceConfigYML);
+$diConfigController->loadServiceConfiguration($serviceConfigYML);
+
+//Output the resources for this configuration
+var_dump($container->getResources());
 
 /** alias tag without a loader**/
 //$diController = new DIController($container);
@@ -217,11 +220,11 @@ $ymlLoader  = new YamlFileLoader($container, $fileLocator);
 //$mailer->send();
 
 /******Working with service locator********/
-$diController = new DIController($container);
-$diController->registerServicesUsingServiceLocator();
+//$diController = new DIController($container);
+//$diController->registerServicesUsingServiceLocator();
 
-$commandBus = $container->get('DIP\Formation\Services\ServiceLocators\CommandBus');
-$commandBus->handle(new \DIP\Formation\Services\ServiceLocators\DeleteUserCommand());
+//$commandBus = $container->get('DIP\Formation\Services\ServiceLocators\CommandBus');
+//$commandBus->handle(new \DIP\Formation\Services\ServiceLocators\DeleteUserCommand());
 
 
 
